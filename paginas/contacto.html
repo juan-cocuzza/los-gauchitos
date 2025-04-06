@@ -1,0 +1,33 @@
+<body>
+    <script>
+    const navLinks = document.getElementById("nav-links");
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+
+if (usuario) {
+    navLinks.innerHTML = `
+    <li><a href="/index.html">Inicio</a></li>
+    <li><a href="/paginas/productos.html">Productos</a></li>
+    <li><a href="/paginas/contacto.html">Contacto</a></li>
+    <li><span>👤 ${usuario.nombre}</span></li>
+    <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+    <li><a href="/paginas/carrito.html">🛒</a></li>
+    `;
+}
+
+function cerrarSesion() {
+    localStorage.removeItem("usuarioLogueado");
+    window.location.reload();
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+        const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+        const usuarioInfo = document.getElementById("usuario-info");
+
+    if (usuarioActivo) {
+    usuarioInfo.innerHTML = `
+        <span>👤 ${usuarioActivo.email}</span>
+        <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>`;
+    } else {
+    usuarioInfo.innerHTML = `<a href="/paginas/login.html">Login</a>`;
+}
+</script>
+</body>

@@ -9,12 +9,12 @@
 <body>
 <header>
     <nav class="navbar">
-    <h1 class="logo">🐾 Los Gauchitos</h1>
+    <h1 class="logo"><a href="index.html">🐾 Los Gauchitos</a></h1>
     <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="/paginas/productos.html">Productos</a></li>
         <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li id="usuario-info"></li>
         <li><a href="/paginas/carrito.html">🛒</a></li>
     </ul>
     </nav>
@@ -44,7 +44,43 @@
     </div>
     </section>
 </main>
+<!------------------------------------------------------------------------------------------------------>
 <script>
+  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const usuarioInfo = document.getElementById("usuario-info");
+
+  if (usuarioActivo) {
+    usuarioInfo.innerHTML = `
+      <span>👤 ${usuarioActivo.email}</span>
+      <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>
+    `;
+  } else {
+    usuarioInfo.innerHTML = `<a href="/paginas/login.html">Login</a>`;
+  }
+/*---------------------------------------------------------------------------------------------------*/
+  const navLinks = document.getElementById("nav-links");
+  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+
+  if (usuario) {
+    navLinks.innerHTML = `
+      <li><a href="/index.html">Inicio</a></li>
+      <li><a href="/paginas/productos.html">Productos</a></li>
+      <li><a href="/paginas/contacto.html">Contacto</a></li>
+      <li><span>👤 ${usuario.nombre}</span></li>
+      <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+      <li><a href="/paginas/carrito.html">🛒</a></li>
+    `;
+  }
+
+  function cerrarSesion() {
+    localStorage.removeItem("usuarioLogueado");
+    window.location.reload();
+  }
+  /*----------------------------------------------------------------------------------------------*/
+  function cerrarSesion() {
+    localStorage.removeItem("usuarioActivo");
+    window.location.reload();
+  }
     const botones = document.querySelectorAll("button");
   
     botones.forEach(boton => {
@@ -67,6 +103,7 @@
         alert(`Agregado al carrito: ${nombre}`);
       });
     });
+    
   </script>
 </body>
 </html>

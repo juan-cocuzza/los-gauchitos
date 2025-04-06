@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login - Los Gauchitos</title>
+<link rel="stylesheet" href="/estilos.css" />
+</head>
+<body>
+<header>
+    <nav class="navbar">
+    <h1 class="logo"><a href="/index.html">🐾 Los Gauchitos</a></h1>
+    <ul class="nav-links">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li id="usuario-info"></li>
+        <li><a href="carrito.html">🛒</a></li>
+    </ul>
+    </nav>
+</header>
+
+<main class="form-container">
+    <h2>Iniciar sesión</h2>
+    <form id="form-login">
+    <label>Email:</label><br />
+    <input type="email" id="email" required /><br />
+    <label>Contraseña:</label><br />
+    <input type="password" id="password" required /><br /><br />
+    <button type="submit">Iniciar sesión</button>
+    </form>
+    <p>¿No tenés cuenta? <a href="registro.html">Registrate acá</a></p>
+</main>
+
+<script>
+    
+
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+const usuarioInfo = document.getElementById("usuario-info");
+
+if (usuarioActivo) {
+    usuarioInfo.innerHTML = `
+    <span>👤 ${usuarioActivo.email}</span>
+    <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>
+    `;
+} else {
+    usuarioInfo.innerHTML = `<a href="login.html">Login</a>`;
+}
+
+function cerrarSesion() {
+    localStorage.removeItem("usuarioActivo");
+    window.location.reload();
+}
+    const form = document.getElementById("form-login");
+
+    form.addEventListener("submit", (e)  => {
+    e.preventDefault();
+});
+document.getElementById("form-login").addEventListener("submit", function(e)  {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const usuario = usuarios.find(u => u.email === email && u.password === password);
+
+    if (usuario) {
+        localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+        alert("Inicio de sesión exitoso");
+        window.location.href = "/index.html";
+    } else {
+        alert("Correo o contraseña incorrectos");
+    }
+    });
+    
+</script>
+</body>
+</html>

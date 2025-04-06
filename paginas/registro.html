@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Registro - Los Gauchitos</title>
+<link rel="stylesheet" href="/estilos.css" />
+</head>
+<body>
+<header>
+    <nav class="navbar">
+    <h1 class="logo"><a href="/index.html">🐾 Los Gauchitos</a></h1>
+    <ul class="nav-links">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li id="usuario-info"></li>
+        <li><a href="carrito.html">🛒</a></li>
+    </ul>
+    </nav>
+</header>
+
+<main class="form-container">
+    <h2>Registro de usuario</h2>
+    <form id="form-registro">
+    <label>Email:</label><br />
+    <input type="email" id="email" required /><br />
+    <label>Contraseña:</label><br />
+    <input type="password" id="password" required /><br /><br />
+    <button type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tenés cuenta? <a href="login.html">Iniciá sesión</a></p>
+</main>
+
+<script>
+
+const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+const usuarioInfo = document.getElementById("usuario-info");
+
+if (usuarioActivo) {
+    usuarioInfo.innerHTML = `
+    <span>👤 ${usuarioActivo.email}</span>
+    <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>
+    `;
+} else {
+    usuarioInfo.innerHTML = `<a href="login.html">Login</a>`;
+}
+
+function cerrarSesion() {
+    localStorage.removeItem("usuarioActivo");
+    window.location.reload();
+}
+    const form = document.getElementById("form-registro");
+
+    form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      // Verificar si ya existe ese mail
+    const yaExiste = usuarios.find(u => u.email === email);
+
+    if (yaExiste) {
+        alert("Este correo ya está registrado");
+        return;
+    }
+
+    usuarios.push({ email, password });
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    alert("Registro exitoso. Ahora podés iniciar sesión.");
+    window.location.href = "login.html";
+    });
+    
+</script>
+</body>
+</html>
