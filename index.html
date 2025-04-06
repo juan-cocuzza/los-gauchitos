@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetShop Los Gauchitos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+    <h1 class="logo">🐾 Los Gauchitos</h1>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="/paginas/productos.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="/paginas/carrito.html">🛒</a></li>
+    </ul>
+    </nav>
+    <section class="banner">
+    <h2>Todo para el cuidado de tu mejor amigo 🐶🐱</h2>
+    <p>Productos seleccionados para su bienestar</p>
+    </section>
+</header>
+
+<main>
+    <section class="destacados">
+    <h2>Productos destacados</h2>
+    <div class="productos">
+        <div class="producto">
+        <img src="img/comida-perro.jpg" alt="Comida para perro">
+        <h3>Comida para perro</h3>
+        <p>$2500</p>
+        <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+        <img src="img/juguete-gato.jpg" alt="Juguete para gato">
+        <h3>Juguete para gato</h3>
+        <p>$1200</p>
+        <button>Agregar al carrito</button>
+        </div>
+        <!-- Agregá más productos si querés -->
+    </div>
+    </section>
+</main>
+<script>
+    const botones = document.querySelectorAll("button");
+  
+    botones.forEach(boton => {
+      boton.addEventListener("click", () => {
+        const producto = boton.parentElement;
+        const nombre = producto.querySelector("h4, h3").innerText;
+        const precio = producto.querySelector("p").innerText;
+        const img = producto.querySelector("img").src;
+  
+        const item = {
+          nombre,
+          precio,
+          img
+        };
+  
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito.push(item);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+  
+        alert(`Agregado al carrito: ${nombre}`);
+      });
+    });
+  </script>
+</body>
+</html>

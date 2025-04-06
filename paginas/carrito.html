@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito - Los Gauchitos</title>
+  <link rel="stylesheet" href="/estilos.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">🐾 Los Gauchitos</h1>
+      <ul class="nav-links">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="carrito.html">🛒</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="productos-container">
+    <h2>Tu carrito</h2>
+    <div id="carrito"></div>
+    <div id="total"></div>
+    <button onclick="vaciarCarrito()">Vaciar carrito</button>
+    <button onclick="irAPagar()">Finalizar compra</button>
+  </main>
+
+  <script>
+    const contenedor = document.getElementById("carrito");
+    const totalDiv = document.getElementById("total");
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    function mostrarCarrito() {
+      contenedor.innerHTML = "";
+      let total = 0;
+
+      carrito.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.classList.add("producto");
+        div.innerHTML = `
+          <img src="${item.img}" width="100" />
+          <h4>${item.nombre}</h4>
+          <p>${item.precio}</p>
+          <button onclick="eliminarProducto(${index})">Eliminar</button>
+        `;
+        contenedor.appendChild(div);
+
+        total += parseFloat(item.precio.replace("$", ""));
+      });
+
+      totalDiv.innerHTML = `<h3>Total: $${total}</h3>`;
+    }
+
+    function eliminarProducto(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      mostrarCarrito();
+    }
+
+    function vaciarCarrito() {
+      localStorage.removeItem("carrito");
+      carrito = [];
+      mostrarCarrito();
+    }
+
+    function irAPagar() {
+      alert("Aquí iría la integración con la pasarela de pagos 💳");
+      // Acá después integramos con MercadoPago, Stripe, etc.
+    }
+
+    mostrarCarrito();
+  </script>
+</body>
+</html>

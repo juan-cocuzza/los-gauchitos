@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productos - Los Gauchitos</title>
+  <link rel="stylesheet" href="/estilos.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">🐾 Los Gauchitos</h1>
+      <ul class="nav-links">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="carrito.html">🛒</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="productos-container">
+    <h2>Todos los productos</h2>
+
+    <!-- Comida -->
+    <section class="categoria">
+      <h3>🍖 Comida</h3>
+      <div class="productos">
+        <div class="producto">
+          <img src="img/comida1.jpg" alt="Comida para perro">
+          <h4>Alimento Premium - Perro</h4>
+          <p>$4500</p>
+          <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="img/comida2.jpg" alt="Comida para gato">
+          <h4>Alimento seco - Gato</h4>
+          <p>$3200</p>
+          <button>Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Juguetes -->
+    <section class="categoria">
+      <h3>🧸 Juguetes</h3>
+      <div class="productos">
+        <div class="producto">
+          <img src="img/juguete1.jpg" alt="Pelota para perro">
+          <h4>Pelota masticable</h4>
+          <p>$900</p>
+          <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="img/juguete2.jpg" alt="Ratoncito para gato">
+          <h4>Ratoncito de felpa</h4>
+          <p>$700</p>
+          <button>Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Higiene -->
+    <section class="categoria">
+      <h3>🧼 Higiene</h3>
+      <div class="productos">
+        <div class="producto">
+          <img src="img/shampoo.jpg" alt="Shampoo para mascotas">
+          <h4>Shampoo neutro</h4>
+          <p>$1500</p>
+          <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="img/toallitas.jpg" alt="Toallitas húmedas">
+          <h4>Toallitas húmedas</h4>
+          <p>$1100</p>
+          <button>Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+</main>
+<script>
+    const botones = document.querySelectorAll("button");
+  
+    botones.forEach(boton => {
+      boton.addEventListener("click", () => {
+        const producto = boton.parentElement;
+        const nombre = producto.querySelector("h4, h3").innerText;
+        const precio = producto.querySelector("p").innerText;
+        const img = producto.querySelector("img").src;
+  
+        const item = {
+          nombre,
+          precio,
+          img
+        };
+  
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito.push(item);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+  
+        alert(`Agregado al carrito: ${nombre}`);
+      });
+    });
+  </script>
+</body>
+</html>
