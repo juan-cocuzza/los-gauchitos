@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Productos para Perros - Los Gauchitos</title>
+<link rel="stylesheet" href="/estilos.css" />
+</head>
+<body>
+<header>
+    <nav class="navbar">
+    <h1 class="logo"><a href="/index.html">🐾 Los Gauchitos</a></h1>
+    <ul class="nav-links">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="carrito.html">🛒</a></li>
+    </ul>
+    </nav>
+</header>
+
+<main class="productos-container">
+    <h2>Productos para Perros</h2>
+
+    <div class="productos">
+    <div class="producto">
+        <img src="/img/alimento-perro.jpg" alt="Alimento para perro" />
+        <h4>Alimento Premium 15kg</h4>
+        <p>$8.200</p>
+        <button onclick="agregarAlCarrito('Alimento Premium 15kg', '$8200', '/img/alimento-perro.jpg')">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+        <img src="/img/juguete-pelota.jpg" alt="Pelota para perro" />
+        <h4>Pelota de goma</h4>
+        <p>$1.200</p>
+        <button onclick="agregarAlCarrito('Pelota de goma', '$1200', '/img/juguete-pelota.jpg')">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+        <img src="/img/collar-perro.jpg" alt="Collar para perro" />
+        <h4>Collar ajustable</h4>
+        <p>$2.500</p>
+        <button onclick="agregarAlCarrito('Collar ajustable', '$2500', '/img/collar-perro.jpg')">Agregar al carrito</button>
+    </div>
+    </div>
+</main>
+
+<script>
+    function agregarAlCarrito(nombre, precio, img) {
+    const producto = { nombre, precio, img };
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carrito.push(producto);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    alert("Producto agregado al carrito");
+    }
+</script>
+</body>
+</html>

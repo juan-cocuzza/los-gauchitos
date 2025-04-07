@@ -27,13 +27,14 @@
     <button onclick="vaciarCarrito()">Vaciar carrito</button>
     <button  id="btn-finalizar" onclick="irAPagar()">Finalizar compra</button>
   </main>
-
-
-
   <script>
+  if (!usuario) {
+    alert("Debés iniciar sesión para acceder a esta página.");
+    window.location.href = "/paginas/login.html";
+  }
+/*-----------------------------------------------------------------------------------------------------*/
     const navLinks = document.getElementById("nav-links");
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
   if (usuario) {
     navLinks.innerHTML = `
       <li><a href="/index.html">Inicio</a></li>
@@ -43,6 +44,11 @@
       <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
       <li><a href="/paginas/carrito.html">🛒</a></li>
     `;
+  }
+
+  if (!usuario) {
+    alert("Debés iniciar sesión para acceder a esta página.");
+    window.location.href = "/paginas/login.html";
   }
 
   function cerrarSesion() {
@@ -107,6 +113,22 @@ const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
 /*----------------------------------------------------------------------------------------------------*/
     function irAPagar() {
   const carrito =  JSON.parse(localStorage.getItem("carrito")) || [];
+    
+  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  if (!usuario) {
+    alert("Debés iniciar sesión para finalizar la compra.");
+    return;
+  }
+
+  let historial = JSON.parse(localStorage.getItem("historialCompras")) || {};
+  if (!historial[usuario.email]) {
+    historial[usuario.email] = [];
+  }
+  historial[usuario.email].push({
+    productos: carrito,
+    fecha: new Date().toLocaleString()
+  });
+  localStorage.setItem("historialCompras", JSON.stringify(historial));
 
   fetch("http://localhost:3000/crear-preferencia", {
     method: "POST",
