@@ -31,13 +31,13 @@
           <img src="img/comida1.jpg" alt="Comida para perro">
           <h4>Alimento Premium - Perro</h4>
           <p>$4500</p>
-          <button>Agregar al carrito</button>
+          <button class="btn-agregar">Agregar al carrito</button>
         </div>
         <div class="producto">
           <img src="img/comida2.jpg" alt="Comida para gato">
           <h4>Alimento seco - Gato</h4>
           <p>$3200</p>
-          <button>Agregar al carrito</button>
+          <button class="btn-agregar">Agregar al carrito</button>
         </div>
       </div>
     </section>
@@ -50,13 +50,13 @@
           <img src="img/juguete1.jpg" alt="Pelota para perro">
           <h4>Pelota masticable</h4>
           <p>$900</p>
-          <button>Agregar al carrito</button>
+          <button class="btn-agregar">Agregar al carrito</button>
         </div>
         <div class="producto">
           <img src="img/juguete2.jpg" alt="Ratoncito para gato">
           <h4>Ratoncito de felpa</h4>
           <p>$700</p>
-          <button>Agregar al carrito</button>
+          <button class="btn-agregar">Agregar al carrito</button>
         </div>
       </div>
     </section>
@@ -69,79 +69,18 @@
           <img src="img/shampoo.jpg" alt="Shampoo para mascotas">
           <h4>Shampoo neutro</h4>
           <p>$1500</p>
-          <button>Agregar al carrito</button>
+          <button class="btn-agregar">Agregar al carrito</button>
         </div>
         <div class="producto">
           <img src="img/toallitas.jpg" alt="Toallitas húmedas">
           <h4>Toallitas húmedas</h4>
           <p>$1100</p>
-          <button>Agregar al carrito</button>
+          <button class="btn-agregar">Agregar al carrito</button>
         </div>
       </div>
     </section>
     <p><a href="perros.html">perros</a></p>
 </main>
-<!----------------------------------------------------------------------------------------------------->
-<script>
-  const navLinks = document.getElementById("nav-links");
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-
-  if (usuario) {
-    navLinks.innerHTML = `
-      <li><a href="/index.html">Inicio</a></li>
-      <li><a href="/paginas/productos.html">Productos</a></li>
-      <li><a href="/paginas/contacto.html">Contacto</a></li>
-      <li><span>👤 ${usuario.nombre}</span></li>
-      <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
-      <li><a href="/paginas/carrito.html">🛒</a></li>
-    `;
-  }
-
-  function cerrarSesion() {
-    localStorage.removeItem("usuarioLogueado");
-    window.location.reload();
-  }
-/*----------------------------------------------------------------------------------------------------*/
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-  const usuarioInfo = document.getElementById("usuario-info");
-
-  if (usuarioActivo) {
-    usuarioInfo.innerHTML = `
-      <span>👤 ${usuarioActivo.email}</span>
-      <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>
-    `;
-  } else {
-    usuarioInfo.innerHTML = `<a href="login.html">Login</a>`;
-  }
-
-  function cerrarSesion() {
-    localStorage.removeItem("usuarioActivo");
-    window.location.reload();
-  }
-/*--------------------------------------------------------------------------------------------------*/
-    const botones = document.querySelectorAll("button");
-  
-    botones.forEach(boton => {
-      boton.addEventListener("click", () => {
-        const producto = boton.parentElement;
-        const nombre = producto.querySelector("h4, h3").innerText;
-        const precio = producto.querySelector("p").innerText;
-        const img = producto.querySelector("img").src;
-  
-        const item = {
-          nombre,
-          precio,
-          img
-        };
-  
-        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-        carrito.push(item);
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-  
-        alert(`Agregado al carrito: ${nombre}`);
-      });
-    });
-    
-  </script>
+<script src="/js/productos.js"></script>
 </body>
 </html>

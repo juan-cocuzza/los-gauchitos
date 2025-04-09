@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Panel de Administración</title>
-<link rel="stylesheet" href="/estilos.css">
+<link rel="stylesheet" href="/estilos.css" />
 </head>
 <body>
 <header>
-    <h1>Panel de Administración</h1>
+    <nav class="navbar">
+    <h1 class="logo"><a href="/index.html">🐾 Los Gauchitos</a></h1>
+    <ul class="nav-links">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/paginas/productos.html">Productos</a></li>
+        <li><a href="/paginas/contacto.html">Contacto</a></li>
+        <li><a href="/paginas/login.html">Login</a></li>
+    </ul>
+    </nav>
 </header>
 
-<main>
-    <section>
-    <h2>Agregar producto</h2>
+<main class="admin-container">
+    <h2>Panel de Administración</h2>
+
+    <section class="formulario-agregar">
+    <h3>Agregar producto</h3>
     <form id="form-agregar">
-        <input type="text" placeholder="Nombre" name="nombre" required />
-        <input type="text" placeholder="Precio" name="precio" required />
-        <input type="text" placeholder="URL de imagen" name="img" required />
-        <select name="categoria">
-        <option value="alimentos">Alimentos</option>
-        <option value="accesorios">Accesorios</option>
-        <option value="juguetes">Juguetes</option>
-        </select>
-        <button type="submit">Agregar</button>
+        <input type="text" id="nombre" placeholder="Nombre" required />
+        <input type="text" id="precio" placeholder="Precio" required />
+        <input type="text" id="imagen" placeholder="URL de la imagen" required />
+        <input type="text" id="categoria" placeholder="Categoría" required />
+        <button type="submit">Agregar producto</button>
     </form>
     </section>
 
-    <section>
-    <h2>Productos existentes</h2>
-    <div id="lista-productos"></div>
+    <section class="lista-productos">
+    <h3>Productos actuales</h3>
+    <div id="productos-admin"></div>
     </section>
 </main>
 
-<script src="/admin.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>
+

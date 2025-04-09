@@ -32,78 +32,17 @@
         <img src="img/comida-perro.jpg" alt="Comida para perro">
         <h3>Comida para perro</h3>
         <p>$2500</p>
-        <button>Agregar al carrito</button>
-        </div>
+        <button class="btn-agregar">Agregar al carrito</button>      </div>
         <div class="producto">
         <img src="img/juguete-gato.jpg" alt="Juguete para gato">
         <h3>Juguete para gato</h3>
         <p>$1200</p>
-        <button>Agregar al carrito</button>
-        </div>
+        <button class="btn-agregar">Agregar al carrito</button>      </div>
         <!-- Agregá más productos si querés -->
     </div>
     </section>
 </main>
 <!------------------------------------------------------------------------------------------------------>
-<script>
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-  const usuarioInfo = document.getElementById("usuario-info");
-
-  if (usuarioActivo) {
-    usuarioInfo.innerHTML = `
-      <span>👤 ${usuarioActivo.email}</span>
-      <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>
-    `;
-  } else {
-    usuarioInfo.innerHTML = `<a href="/paginas/login.html">Login</a>`;
-  }
-/*---------------------------------------------------------------------------------------------------*/
-  const navLinks = document.getElementById("nav-links");
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-
-  if (usuario) {
-    navLinks.innerHTML = `
-      <li><a href="/index.html">Inicio</a></li>
-      <li><a href="/paginas/productos.html">Productos</a></li>
-      <li><a href="/paginas/contacto.html">Contacto</a></li>
-      <li><span>👤 ${usuario.nombre}</span></li>
-      <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
-      <li><a href="/paginas/carrito.html">🛒</a></li>
-    `;
-  }
-
-  function cerrarSesion() {
-    localStorage.removeItem("usuarioLogueado");
-    window.location.reload();
-  }
-  /*----------------------------------------------------------------------------------------------*/
-  function cerrarSesion() {
-    localStorage.removeItem("usuarioActivo");
-    window.location.reload();
-  }
-    const botones = document.querySelectorAll("button");
-  
-    botones.forEach(boton => {
-      boton.addEventListener("click", () => {
-        const producto = boton.parentElement;
-        const nombre = producto.querySelector("h4, h3").innerText;
-        const precio = producto.querySelector("p").innerText;
-        const img = producto.querySelector("img").src;
-  
-        const item = {
-          nombre,
-          precio,
-          img
-        };
-  
-        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-        carrito.push(item);
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-  
-        alert(`Agregado al carrito: ${nombre}`);
-      });
-    });
-    
-  </script>
+<script src="/js/index.js"></script>
 </body>
 </html>

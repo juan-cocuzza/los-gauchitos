@@ -10,7 +10,7 @@
   <header>
     <nav class="navbar">
       <h1 class="logo"><a href="/index.html">🐾 Los Gauchitos</a></h1>
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="/index.html">Inicio</a></li>
         <li><a href="productos.html">Productos</a></li>
         <li><a href="contacto.html">Contacto</a></li>
@@ -25,133 +25,9 @@
     <div id="carrito"></div>
     <div id="total"></div>
     <button onclick="vaciarCarrito()">Vaciar carrito</button>
-    <button  id="btn-finalizar" onclick="irAPagar()">Finalizar compra</button>
+    <button id="btn-finalizar" onclick="irAPagar()">Finalizar compra</button>
   </main>
-  <script>
-  if (!usuario) {
-    alert("Debés iniciar sesión para acceder a esta página.");
-    window.location.href = "/paginas/login.html";
-  }
-/*-----------------------------------------------------------------------------------------------------*/
-    const navLinks = document.getElementById("nav-links");
-    const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  if (usuario) {
-    navLinks.innerHTML = `
-      <li><a href="/index.html">Inicio</a></li>
-      <li><a href="/paginas/productos.html">Productos</a></li>
-      <li><a href="/paginas/contacto.html">Contacto</a></li>
-      <li><span>👤 ${usuario.nombre}</span></li>
-      <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
-      <li><a href="/paginas/carrito.html">🛒</a></li>
-    `;
-  }
-
-  if (!usuario) {
-    alert("Debés iniciar sesión para acceder a esta página.");
-    window.location.href = "/paginas/login.html";
-  }
-
-  function cerrarSesion() {
-    localStorage.removeItem("usuarioLogueado");
-    window.location.reload();
-  }
-/*----------------------------------------------------------------------------------------------------*/
-const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-  const usuarioInfo = document.getElementById("usuario-info");
-
-  if (usuarioActivo) {
-    usuarioInfo.innerHTML = `
-      <span>👤 ${usuarioActivo.email}</span>
-      <button onclick="cerrarSesion()" style="margin-left: 10px;">Salir</button>
-    `;
-  } else {
-    usuarioInfo.innerHTML = `<a href="login.html">Login</a>`;
-  }
-
-  function cerrarSesion() {
-    localStorage.removeItem("usuarioActivo");
-    window.location.reload();
-  }
-/*----------------------------------------------------------------------------------------------------*/
-    const contenedor = document.getElementById("carrito");
-    const totalDiv = document.getElementById("total");
-
-    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    function mostrarCarrito() {
-      contenedor.innerHTML = "";
-      let total = 0;
-
-      carrito.forEach((item, index) => {
-        const div = document.createElement("div");
-        div.classList.add("producto");
-        div.innerHTML = `
-          <img src="${item.img}" width="100" />
-          <h4>${item.nombre}</h4>
-          <p>${item.precio}</p>
-          <button onclick="eliminarProducto(${index})">Eliminar</button>
-        `;
-        contenedor.appendChild(div);
-
-        total += parseFloat(item.precio.replace("$", ""));
-      });
-
-      totalDiv.innerHTML = `<h3>Total: $${total}</h3>`;
-    }
-
-    function eliminarProducto(index) {
-      carrito.splice(index, 1);
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      mostrarCarrito();
-    }
-
-    function vaciarCarrito() {
-      localStorage.removeItem("carrito");
-      carrito = [];
-      mostrarCarrito();
-    }
-/*----------------------------------------------------------------------------------------------------*/
-    function irAPagar() {
-  const carrito =  JSON.parse(localStorage.getItem("carrito")) || [];
-    
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  if (!usuario) {
-    alert("Debés iniciar sesión para finalizar la compra.");
-    return;
-  }
-
-  let historial = JSON.parse(localStorage.getItem("historialCompras")) || {};
-  if (!historial[usuario.email]) {
-    historial[usuario.email] = [];
-  }
-  historial[usuario.email].push({
-    productos: carrito,
-    fecha: new Date().toLocaleString()
-  });
-  localStorage.setItem("historialCompras", JSON.stringify(historial));
-
-  fetch("http://localhost:3000/crear-preferencia", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ carrito })
-  })
-  .then(response => response.json())
-  .then(data => {
-    window.location.href = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${data.id}`;
-  })
-  .catch(error => {
-    console.error("Error al crear preferencia:", error);
-    alert("Hubo un problema al generar el pago.");
-  });
-}
-
-window.irAPagar = irAPagar;
-
-mostrarCarrito();
-/*----------------------------------------------------------------------------------------------------*/
-
-  </script>
+  <!-- Archivo JS separado -->
+  <script src="/js/carrito.js"></script>
 </body>
 </html>
